@@ -57,3 +57,20 @@ exports.studentUpdate = async (req,res)=>{
         
     }
 };
+
+exports.studentDelete = async (req,res)=>{
+    try {
+        let id = req.params.id;
+        let filter  = {_id: id};
+        await studentsModel.findByIdAndDelete(filter);
+        return res.status(200).send({
+            status:"success",
+            msg:"Student Deleted Successfully"
+        })
+    }catch (e) {
+        return res.status(500).send({
+            status: "fail",
+            msg:"Internal Server Error"
+        })
+    }
+};
