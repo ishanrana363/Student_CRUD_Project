@@ -35,3 +35,25 @@ exports.allStudents = async (req,res)=>{
 
     }
 };
+
+exports.studentUpdate = async (req,res)=>{
+    try {
+        let reqBody = req.body;
+        let id = req.params.id;
+        let filter  = {
+            _id : id
+        };
+        let data =  await studentsModel.findByIdAndUpdate(filter,reqBody);
+        return res.status(200).send({
+            status:"success",
+            msg : "Student Updated Successfully"
+        });
+    }catch (e) {
+
+        return res.status(500).send({
+            status: "fail",
+            msg:"Internal Server Error"
+        });
+        
+    }
+};
